@@ -1,0 +1,32 @@
+Generics
+1.Generics are the thing which allow us to write the component which are reusable and which can work for variety of types 
+
+We use generics over any because using it we can specify relationship between two things hence it provide more type safety.
+
+
+We can have multiple types 
+
+
+
+
+Generic function 
+
+const converToArray<T>(val:T):T[]=>{
+    return [T];
+}
+
+
+
+Example1:-
+We want to write a function which will accept a props of type React.ComponentType 
+
+const parentComponent: React.FC<{component:React.ComponentType}>({component}){
+    return <component />
+
+}
+
+Sometimes we need to make the component more reusable by extending the type.
+
+For example I was having a prop which was a component but it was not accepting the classname props to make it accept classname props we can do the following thing 
+
+const ParentComponent:React.FC<{Component : REact.FC<React.SVGProps<SVGVGElement>>}>;

@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base{
+    .removerScrollbar::-webkit-scrollbar{
+        width: 0px;
+        height: 0px;
+        background:transparent ;
+    }
+    .removerScrollbar::-webkit-scrollbar-thumb{
+        background:transparent;
+
+    }
+
+
+}
+
+@layer utilities{
+    .removeScroll{
+        @apply remove-scrollbar 
+    }
+
+    .container{
+        @apply flex-1 max-w-[110rem] overflow-y-auto 
+    }
+
+}
