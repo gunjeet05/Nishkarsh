@@ -9,8 +9,8 @@ import { Form } from "@/components/ui/form";
 
 export default function Home() {
   return (
-    <div className="flex h-screen max-h-screen">
-      <section className="container max-h-screen pt-3">
+    <div className="flex h-screen">
+      <section className="container  pt-3">
        
         <div className="logo flex items-center gap-2 rounded-md">
           <Image className="h-[5rem] w-[5rem]" src={'/Images/Logo/logo5.png'} height={1000} width={1000} alt="logo" />

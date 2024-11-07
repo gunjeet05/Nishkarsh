@@ -5,6 +5,11 @@ import { CiUser } from "react-icons/ci";
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
 import { E164Number } from "libphonenumber-js/core";
+import DatePicker from "react-datepicker";
+
+import { CiCalendar } from "react-icons/ci";
+
+import "react-datepicker/dist/react-datepicker.css";
 import {
     
     FormControl,
@@ -19,6 +24,9 @@ import { Input } from "@/components/ui/input"
 import { Control } from 'react-hook-form'
 
 import { SvgIconComponent } from '@mui/icons-material';
+import { RadioGroup } from '@mui/material';
+import { Textarea } from './ui/textarea';
+import { Checkbox } from './ui/checkbox';
 
 export enum FieldType{
   Input='input',
@@ -42,7 +50,7 @@ interface propsType{
   label?:string;
   disabled?:string;
   dateFormat?:string;
-  showTimeSelect?:string;
+  showTimeSelect?:boolean;
   children?:React.ReactNode;
   renderSkeleton?:(field:any)=>React.ReactNode;
   placeholder?:string;
@@ -97,6 +105,52 @@ const RenderField=({props, field}:{props:propsType, field:any})=>{
 
        
       )
+
+      case FieldType.DatePicker:
+        return(
+          <div className='w-full flex  border border-dark-500 bg-dark-400 rounded-md h-10 p-2 gap-2'>
+            <CiCalendar className='h-[1.5rem] w-[1.5rem]' />
+            <DatePicker 
+            selected={field.value}
+            onChange={(val)=>field.onChange(val)}
+            className='text-sm'
+            showTimeSelect={props.showTimeSelect}
+            dateFormat={props.dateFormat}
+            
+            
+            />
+          </div>
+        )
+
+        case FieldType.Skeleton:
+          return (props.renderSkeleton)? props.renderSkeleton(field):null;
+
+        case FieldType.TextArea:
+          return (
+            <FormControl>
+                <Textarea {...field} className='bg-dark-400 border border-dark-500' />
+
+
+                
+            </FormControl>
+           
+          )
+
+          case FieldType.CheckBox:
+            return(
+              <FormControl>
+                <div className='flex gap-2 items-center'>
+                <Checkbox 
+                    id={props.name}
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                
+                />
+                <label htmlFor={props.name}>{props.label}</label>
+                </div>
+                
+              </FormControl>
+            )
     
     
     default:

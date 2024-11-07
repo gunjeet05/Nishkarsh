@@ -10,13 +10,16 @@ import { Form } from "@/components/ui/form"
 import CustomField from "./CustomField"
 import { FieldType } from "./CustomField"
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import { SvgIconComponent } from '@mui/icons-material';
+import { Rotate90DegreesCcw, SvgIconComponent } from '@mui/icons-material';
  
 
 import SubmitButton from './SubmitButton';
 import MarkunreadOutlinedIcon from '@mui/icons-material/MarkunreadOutlined';
 import { useState } from "react"
 import { formSchema } from "@/lib/validation"
+import { useRouter } from "next/navigation"
+
+import {addNewUser} from '../lib/action/client.action'
 
 // const formSchema2=z.object({
 //   username:z.string().min(2, {
@@ -29,26 +32,46 @@ import { formSchema } from "@/lib/validation"
 // })
 
 
-function onSubmit(values:z.infer<typeof formSchema> ) {
-  try{
-    const {username, email, phone}=values;
 
-    const userData={username, email , phone};
-
-    console.log("User Data", userData);
-  }
-  catch(err){
-    console.log("Error occured", err);
-  }
- 
-
-}
 
 // function onSubmit2(values:z.infer<typeof formSchema>){
   
 // }
 
 const LoginForm=()=> {
+
+  const router=useRouter();
+  const [isLoading, setisLoding]=useState(false);
+  
+
+  async function onSubmit(values:z.infer<typeof formSchema> ) {
+    setisLoding(true);
+    console.log(values);
+    try{
+      const {username:name, email, phone}=values;
+  
+      const userData={name, email , phone};
+  
+      const newuser=await addNewUser(userData);
+      if(newuser){
+        router.push(`/patient/${newuser.$id}/register`);
+      }
+      console.log("New user created", newuser);
+      
+  
+      
+    }
+    catch(err){
+      console.log("Error occured", err);
+    }
+    finally{
+      setisLoding(false);
+    }
+   
+  
+  }
+   
+
   // ...
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -59,8 +82,8 @@ const LoginForm=()=> {
     },
   })
 
-  const [loading, setLoading]=useState(false);      
-  console.log("Form", form);
+  //const [loading, setLoading]=useState(false);      
+  // console.log("Form", form);
 
 
   
@@ -89,7 +112,7 @@ const LoginForm=()=> {
         
         
          
-    <SubmitButton loading={loading}>
+    <SubmitButton loading={isLoading}>
       Get Started
       </SubmitButton>
       
