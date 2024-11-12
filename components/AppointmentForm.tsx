@@ -16,6 +16,7 @@ import Image from "next/image";
 import {FormControl} from '../components/ui/form'
 import { getClient, getClientData } from "@/lib/action/client.action";
 import { addNewAppointment } from "@/lib/action/appointment.action";
+import { useRouter } from "next/navigation";
 
 
 
@@ -58,7 +59,7 @@ const AppointMentForm=({userId, type,}:propsType)=> {
       })
   },[userId])
   const formSchema=getSchema(type);
-  
+  const router=useRouter();
  
   console.log("Client data", clientData)
   const form = useForm<z.infer<typeof formSchema>>({
@@ -106,7 +107,10 @@ const AppointMentForm=({userId, type,}:propsType)=> {
         }
         console.log("Data to be sent", appointmentData);
         const newAppointment=await addNewAppointment(appointmentData);
-        console.log("New appointment created", newAppointment);
+        if(newAppointment){
+             router.push(`new-appointment/success/?id=${newAppointment.$id}`);
+        }
+       // console.log("New appointment created", newAppointment.$id);
         
       } else {
         console.log("In else block");

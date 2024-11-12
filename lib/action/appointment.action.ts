@@ -1,4 +1,4 @@
-import { ID } from "node-appwrite";
+import { ID, Query } from "node-appwrite";
 import { database, NEXT_PUBLIC_APPOINTMENT_KEY, NEXT_PUBLIC_DATABASE_KEY } from "../appwrite.config";
 
 
@@ -32,5 +32,24 @@ export const addNewAppointment=async(appointmentData:appointmentType)=>{
     }
     catch(err){
         console.log("Error occured in adding new Appointment", err);
+    }
+}
+
+
+
+export const getAppointment=async(appointmentId:string)=>{
+    try{
+        const appointmentdetails=await database.listDocuments( NEXT_PUBLIC_DATABASE_KEY!,
+            NEXT_PUBLIC_APPOINTMENT_KEY!,
+            [Query.equal('$id', appointmentId)],
+        )
+           console.log(JSON.parse(JSON.stringify(appointmentdetails)));
+        return JSON.parse(JSON.stringify(appointmentdetails)).documents[0];
+
+
+       
+    }
+    catch(err){
+        console.log("Error occured while fetching the appointment details", err);
     }
 }

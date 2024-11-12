@@ -4,12 +4,28 @@ import Image from "next/image";
 
 import Link from "next/link";
 import { Form } from "@/components/ui/form";
+import PassKeyModal from "@/components/PassKeyModal";
 
+type searchParamType={
+  searchParams:{
+    admin?:string
+  }
+ 
+}
 
-
-export default function Home() {
+export default function Home({searchParams}:searchParamType) {
+  console.log(searchParams);
+  const isAdminPage=searchParams && searchParams.admin==='true';
+  console.log(isAdminPage);
   return (
+
+
     <div className="flex h-screen">
+      {
+        isAdminPage&&
+        
+        <PassKeyModal/>
+      }
       <section className="container  pt-3">
        
         <div className="logo flex items-center gap-2 rounded-md">
