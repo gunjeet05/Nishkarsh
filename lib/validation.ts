@@ -58,7 +58,8 @@ const scheduleAppointmentSchema=z.object({
   Lawyer:z.string().min(2, "Please select a lawyer"),
   schedule:z.coerce.date(),
   reason:z.string().min(10, "Length should be atleast 10"),
-  additionalNotes:z.string().optional()
+  additionalNotes:z.string().optional(),
+  
   
 })
 

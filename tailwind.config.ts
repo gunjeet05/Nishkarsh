@@ -49,11 +49,17 @@ const config = {
       fontFamily: {
         sans: ["var(--font-sans)", ...fontFamily.sans],
       },
+      boxShadow:{
+        "scheduled":"0 0 5px 0.2px yellow",
+         "cancelled":"0 0 5px 0.2px #ff8080",
+          "pending":"0 0 5px 0.2px #93d3ed ",
+      },
       backgroundImage: {
         appointments: "url('/assets/images/appointments-bg.png')",
         pending: "url('/assets/images/pending-bg.png')",
         cancelled: "url('/assets/images/cancelled-bg.png')",
       },
+      
       keyframes: {
         "accordion-down": {
           from: { height: "0" },
@@ -67,11 +73,20 @@ const config = {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+
+        "glow":{
+          '0%, 100%': { boxShadow: '0 0 10px 2px rgba(0, 255, 255, 0.5)' },
+          '50%': { boxShadow: '0 0 5px 5px rgba(0, 255, 255, 1)' },
+
+        }
+
+
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "glow-animation":"glow 1.25s infinite"
       },
     },
   },

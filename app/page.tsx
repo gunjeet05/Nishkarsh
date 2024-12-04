@@ -14,7 +14,7 @@ type searchParamType={
 }
 
 export default function Home({searchParams}:searchParamType) {
-  console.log(searchParams);
+  console.log("search Params", searchParams);
   const isAdminPage=searchParams && searchParams.admin==='true';
   console.log(isAdminPage);
   return (
